@@ -8,13 +8,13 @@
 
         <ul class="list-unstyled components">
             <li>
-                <a href="/home">Home</a>
+                <router-link class="nav-link" to="/">Home</router-link>
             </li>
             <li>
-                <a href="/portfolio">Portfolio</a>
+                <router-link class="nav-link" to="/portfolio">Portfolio</router-link>
             </li>
-            <li class="active">
-                <a href="/invest">Invest</a>
+            <li>
+                <router-link class="nav-link" to="/invest">Invest</router-link>
             </li>
         </ul>
 

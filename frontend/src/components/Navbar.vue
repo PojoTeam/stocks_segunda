@@ -2,7 +2,7 @@
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container-fluid">
 
-            <button type="button" id="sidebarCollapse" v-on:click="collapseSidebar" class="btn btn-info">
+            <button type="button" id="sidebarCollapse" v-on:click="collapseSidebar" class="btn btn-info ">
                 <font-awesome-icon :icon="faBars"/>
             </button>
 

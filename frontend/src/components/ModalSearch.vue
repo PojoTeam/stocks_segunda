@@ -1,5 +1,5 @@
 <template>
-    <div class="container-fluid">
+    <div class="mx-auto">
         <button type="button" id="modal-btn" class="btn btn-primary" data-toggle="modal" data-target=".bs-example-modal-lg">
             <font-awesome-icon :icon="faSearch"/>&nbsp;&nbsp;&nbsp;&nbsp;{{ searchMessage }}
         </button>
@@ -50,19 +50,8 @@
                         stock_name: event.target.innerText
                     }
                 });
-            },
-            handleResize(){
-                if (window.innerWidth < 768) {
-                    this.searchMessage = null
-                }else{
-                    this.searchMessage = "Buscar Stocks"
-                }
             }
-        },
-        created() {
-            window.addEventListener('resize', this.handleResize);
-            this.handleResize();
-        },
+        }
     }
 </script>
 
@@ -89,15 +78,10 @@
         border-radius: 0rem !important;
     }
 
-    #modal-btn {
-        position: absolute;
-        left: 50%;
-        transform: translatex(-50%);
-    }
+    /*#modal-btn {*/
+    /*    position: absolute;*/
+    /*    left: 50%;*/
+    /*    transform: translatex(-50%);*/
+    /*}*/
 
-    @media (max-width: 768px) {
-        .btn-primary{
-            width: 30%
-        }
-    }
 </style>
