@@ -1,4 +1,8 @@
 <template>
+    <div class="container-fluid">
+        <button type="button" id="modal-btn" class="btn btn-primary" data-toggle="modal" data-target=".bs-example-modal-lg">
+            <font-awesome-icon :icon="faSearch"/>&nbsp;&nbsp;&nbsp;&nbsp;{{ searchMessage }}
+        </button>
         <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" id="app-1">
             <div class="modal-dialog modal-lg">
                 <div class="modal-content">
@@ -13,16 +17,27 @@
                 </div>
             </div>
         </div>
+    </div>
 </template>
 
 <script>
     import axios from "axios";
+    import {faSearch} from '@fortawesome/free-solid-svg-icons'
 
     export default {
         name: "ModalSearch",
         data() {
             return {
-                stocks: []
+                stocks: [],
+                window: {
+                    width: null
+                },
+                searchMessage: "Buscar Stocks"
+            }
+        },
+        computed: {
+            faSearch(){
+                return faSearch
             }
         },
         methods: {
@@ -35,8 +50,19 @@
                         stock_name: event.target.innerText
                     }
                 });
+            },
+            handleResize(){
+                if (window.innerWidth < 768) {
+                    this.searchMessage = null
+                }else{
+                    this.searchMessage = "Buscar Stocks"
+                }
             }
-        }
+        },
+        created() {
+            window.addEventListener('resize', this.handleResize);
+            this.handleResize();
+        },
     }
 </script>
 
@@ -61,5 +87,17 @@
 
     .list-group-item:first-child {
         border-radius: 0rem !important;
+    }
+
+    #modal-btn {
+        position: absolute;
+        left: 50%;
+        transform: translatex(-50%);
+    }
+
+    @media (max-width: 768px) {
+        .btn-primary{
+            width: 30%
+        }
     }
 </style>
