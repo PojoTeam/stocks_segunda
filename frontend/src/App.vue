@@ -3,6 +3,7 @@
     <router-view></router-view>
     <div id="content">
       <Navbar></Navbar>
+      <router-view name="bodyInvest"></router-view>
     </div>
   </div>
 </template>
