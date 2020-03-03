@@ -1,12 +1,16 @@
 package com.proyecto.stocks;
 
 import com.mongodb.client.MongoDatabase;
-import com.proyecto.stocks.infrastructure.mongodb.ConnectionMongo;
-import com.proyecto.stocks.infrastructure.mongodb.InsertMongo;
+import com.proyecto.stocks.infrastructure.IEX.IEX;
+import com.proyecto.stocks.infrastructure.mongodb.MongoConnection;
+import com.proyecto.stocks.infrastructure.mongodb.MongoInsert;
+import com.proyecto.stocks.model.Company;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+import java.util.ArrayList;
 
 @SpringBootApplication
 public class StocksApplication implements ApplicationRunner {
@@ -16,8 +20,9 @@ public class StocksApplication implements ApplicationRunner {
     }
 
     @Override
-    public void run(ApplicationArguments args) throws Exception {
-        MongoDatabase db = ConnectionMongo.initiate();
-        InsertMongo.companys(db);
+    public void run(ApplicationArguments args) {
+        MongoDatabase db = MongoConnection.initiate();
+        ArrayList<Company> companies = IEX.getCompanys();
+        MongoInsert.companies(db, companies);
     }
 }
