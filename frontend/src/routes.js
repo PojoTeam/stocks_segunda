@@ -4,6 +4,7 @@ import Router from "vue-router";
 import ModalSearch from "./components/ModalSearch";
 // import Navbar from "./components/Navbar";
 import Sidebar from "./components/Sidebar";
+import BodyInvest from "./components/BodyInvest";
 
 Vue.use(Router);
 
@@ -15,7 +16,8 @@ const router = new Router({
             name: "Home",
             components: {
                 default: Sidebar,
-                modalBtn: null
+                modalBtn: null,
+                bodyInvest: null
             }
         },
         {
@@ -23,7 +25,8 @@ const router = new Router({
             name: "Portfolio",
             components: {
                 default: Sidebar,
-                modalBtn: null
+                modalBtn: null,
+                bodyInvest: null
             }
         },
         {
@@ -31,7 +34,8 @@ const router = new Router({
             name: "Invest",
             components: {
                 default: Sidebar,
-                modalBtn: ModalSearch
+                modalBtn: ModalSearch,
+                bodyInvest: BodyInvest
             }
         }
     ]
