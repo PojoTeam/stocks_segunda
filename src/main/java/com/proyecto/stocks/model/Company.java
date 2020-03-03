@@ -1,21 +1,30 @@
 package com.proyecto.stocks.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import java.io.Serializable;
 
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class Company implements Serializable {
+    private String companyName;
     private String symbol;
-    private String name;
     private String description;
-    private float marketCap;
 
     public Company() {
     }
 
-    public Company(String symbol, String name, String description, float marketCap) {
+    public Company(String companyName, String symbol, String description) {
+        this.companyName = companyName;
         this.symbol = symbol;
-        this.name = name;
         this.description = description;
-        this.marketCap = marketCap;
+    }
+
+    public String getCompanyName() {
+        return companyName;
+    }
+
+    public void setCompanyName(String companyName) {
+        this.companyName = companyName;
     }
 
     public String getSymbol() {
@@ -26,27 +35,11 @@ public class Company implements Serializable {
         this.symbol = symbol;
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
     public String getDescription() {
         return description;
     }
 
     public void setDescription(String description) {
         this.description = description;
-    }
-
-    public float getMarketCap() {
-        return marketCap;
-    }
-
-    public void setMarketCap(float marketCap) {
-        this.marketCap = marketCap;
     }
 }
