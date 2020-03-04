@@ -1,8 +1,7 @@
 package com.proyecto.stocks.controller;
 
-import com.proyecto.stocks.infrastructure.mongodb.MongoConnection;
 import com.proyecto.stocks.infrastructure.mongodb.MongoQuery;
-import org.bson.Document;
+import com.proyecto.stocks.model.Company;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,9 +14,9 @@ import java.util.List;
 public class CompanyController {
 
     @CrossOrigin(origins = {"*"}, allowedHeaders = "*")
-    @GetMapping("/company")
+    @GetMapping("/invest")
     public ResponseEntity<?> obtainAll() {
-        List<Document> result = MongoQuery.companies(MongoConnection.initiate());
+        List<Company> result = MongoQuery.companies();
         if (result.isEmpty()) {
             return ResponseEntity.notFound().build();
         } else {

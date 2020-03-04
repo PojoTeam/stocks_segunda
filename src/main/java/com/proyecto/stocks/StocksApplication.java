@@ -21,8 +21,7 @@ public class StocksApplication implements ApplicationRunner {
 
     @Override
     public void run(ApplicationArguments args) {
-        MongoDatabase db = MongoConnection.initiate();
         ArrayList<Company> companies = IEX.getCompanys();
-        MongoInsert.companies(db, companies);
+        MongoInsert.companies(companies);
     }
 }

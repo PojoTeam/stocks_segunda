@@ -9,14 +9,16 @@ public class Company implements Serializable {
     private String companyName;
     private String symbol;
     private String description;
+    private String logo;
 
     public Company() {
     }
 
-    public Company(String companyName, String symbol, String description) {
+    public Company(String companyName, String symbol, String description, String logo) {
         this.companyName = companyName;
         this.symbol = symbol;
         this.description = description;
+        this.logo = logo;
     }
 
     public String getCompanyName() {
@@ -41,5 +43,13 @@ public class Company implements Serializable {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public String getLogo() {
+        return logo;
+    }
+
+    public void setLogo(String logo) {
+        this.logo = logo;
     }
 }

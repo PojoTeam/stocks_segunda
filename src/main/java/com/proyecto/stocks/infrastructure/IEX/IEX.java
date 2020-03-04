@@ -19,13 +19,15 @@ public class IEX {
         ArrayList<Company> companies = new ArrayList<Company>();
         Company company = null;
 
-        String[] symbols = {"axp", "aapl", "ba", "cat", "csco", "cvx", "xom", "gs", "hd", "ibm", "intc", "jnj", "ko", "jmp", "mcd", "mmm", "mrk",
-                "msft", "nke", "pfe", "pg", "trv", "unh", "utx", "vz", "v", "wba", "wmt", "dis", "dow"};
+        String[] symbols = {"AXP","AAPL","BA","CAT","CSCO","CVX","XOM","GS","HD","IBM",
+                "INTC","JNJ","KO","JPM","MCD","MMM","MRK","MSFT","NKE","PFE","PG",
+                "TRV","UNH","UTX","VZ","V","WBA","WMT","DIS","DOW"};
 
         ObjectMapper mapper = new ObjectMapper();
 
         for (String symbol : symbols) {
             String urlString = "https://sandbox.iexapis.com/stable/stock/" + symbol + "/company?token=Tsk_f17894b062044e64be9a0403cca7166d";
+            String urlStringLogo = "https://storage.googleapis.com/iex/api/logos/" + symbol + ".png";
             try {
                 URL url = new URL(urlString);
 
@@ -34,6 +36,7 @@ public class IEX {
                 String json = br.readLine();
 
                 company = mapper.readValue(json, Company.class);
+                company.setLogo(urlStringLogo);
 
                 companies.add(company);
 
