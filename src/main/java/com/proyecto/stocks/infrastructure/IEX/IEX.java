@@ -2,6 +2,7 @@ package com.proyecto.stocks.infrastructure.IEX;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.proyecto.stocks.model.Company;
+import io.github.cdimascio.dotenv.Dotenv;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -24,9 +25,10 @@ public class IEX {
                 "TRV","UNH","UTX","VZ","V","WBA","WMT","DIS","DOW"};
 
         ObjectMapper mapper = new ObjectMapper();
+        Dotenv dotenv = Dotenv.load();
 
         for (String symbol : symbols) {
-            String urlString = "https://sandbox.iexapis.com/stable/stock/" + symbol + "/company?token=Tsk_f17894b062044e64be9a0403cca7166d";
+            String urlString = "https://cloud.iexapis.com/stable/stock/" + symbol + "/company?token=" + dotenv.get("API_KEY");
             String urlStringLogo = "https://storage.googleapis.com/iex/api/logos/" + symbol + ".png";
             try {
                 URL url = new URL(urlString);
