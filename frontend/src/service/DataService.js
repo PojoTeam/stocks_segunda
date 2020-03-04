@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const API_URL = "http://192.168.4.5:8080";
+const API_URL = "http://localhost:8090";
 
 class DataService {
     retrieveBasicStockData() {

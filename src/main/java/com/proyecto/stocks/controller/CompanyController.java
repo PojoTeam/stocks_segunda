@@ -1,5 +1,6 @@
 package com.proyecto.stocks.controller;
 
+import com.google.gson.Gson;
 import com.proyecto.stocks.infrastructure.mongodb.MongoQuery;
 import com.proyecto.stocks.model.Company;
 import org.springframework.http.ResponseEntity;

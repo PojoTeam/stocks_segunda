@@ -11,7 +11,7 @@
                             <h5 class="companyName card-title">{{stock.companyName}}</h5>
                         </div>
                     </div>
-                    <p>{{stock.descripcion}}</p>
+                    <p id="descripcion">{{stock.description.substring(0,200)}}...</p>
                     <p class="card-text"><small class="text-muted"></small></p>
                 </div>
             </div>
@@ -34,7 +34,24 @@
                 "TRV","UNH","UTX","VZ","V","WBA","WMT","DIS","DOW"]
             }
         },
-        mounted: function () {
+        methods: {
+            fadeIn(element){
+                element.classList.add('fadingIn')
+            },
+            deleteFade(element){
+                element.classList.remove('fadingIn')
+            },
+            listStocks(){
+                DataService.retrieveBasicStockData().then((response) => {
+                    this.stocks = response.data;
+                });
+                this.setObservers();
+            }
+        },
+        created() {
+            this.listStocks();
+        },
+        updated() {
             this.intersectionObserver = new IntersectionObserver((entries, /**observer**/) => {
                 entries.forEach((entry) => {
                     if (entry.isIntersecting) {
@@ -52,25 +69,6 @@
             });
             this.elements = [...document.querySelectorAll('.custom-fade')];
             this.elements.forEach((element) => this.intersectionObserver.observe(element));
-
-        },
-        methods: {
-            fadeIn(element){
-                element.classList.add('fadingIn')
-            },
-            deleteFade(element){
-                element.classList.remove('fadingIn')
-            },
-            listStocks(response, i){
-                let stock = {id: i, companyName: response.data[i].companyName, descripcion: response.data[i].description, logo: response.data[i].logo};
-                console.log(stock)
-            }
-        },
-        created() {
-            DataService.retrieveBasicStockData().then(function(response){
-                let i = 0;
-                this.listStocks(response, i);
-            });
         }
     }
 </script>
@@ -103,5 +101,12 @@
     .fadingIn {
         opacity: 1;
         transition: opacity 1s;
+    }
+
+    #descripcion{
+        color: black;
+        font-size: 14px;
+        text-align: left;
+        margin-top: 10px;
     }
 </style>
