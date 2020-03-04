@@ -29,7 +29,7 @@ public class IEX {
 
         for (String symbol : symbols) {
             String urlString = "https://cloud.iexapis.com/stable/stock/" + symbol + "/company?token=" + dotenv.get("API_KEY");
-            String urlStringLogo = "https://storage.googleapis.com/iex/api/logos/" + symbol + ".png";
+            String urlStringLogo = "https://storage.googleapis.com/iexcloud-hl37opg/api/logos/" + symbol + ".png";
             try {
                 URL url = new URL(urlString);
 
