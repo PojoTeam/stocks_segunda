@@ -5,13 +5,13 @@
                 <div class="container card-body">
                     <div class="row">
                         <div class="col-3 d-flex justify-content-center">
-                            <img :src="stock.img">
+                            <img :src="stock.logo" alt="Logo de la empresa">
                         </div>
                         <div class="col-9 d-flex align-items-center justify-content-start">
-                            <h5 class="companyName card-title">{{stock.name}}</h5>
+                            <h5 class="companyName card-title">{{stock.companyName}}</h5>
                         </div>
                     </div>
-                    <p>{{stock.sector}}</p>
+                    <p>{{stock.descripcion}}</p>
                     <p class="card-text"><small class="text-muted"></small></p>
                 </div>
             </div>
@@ -61,20 +61,16 @@
             deleteFade(element){
                 element.classList.remove('fadingIn')
             },
-            listStocks(symbol){
-                let stock = {name: "", sector: "", img: ""};
-                DataService.retrieveBasicStockData(symbol).then( function(response){
-                    stock.name = response.data.companyName;
-                    stock.sector = response.data.sector;
-                });
-                DataService.retrieveStockLogo(symbol).then( function(response){
-                    stock.img = response.data.url;
-                });
-                this.stocks.push(stock)
+            listStocks(response, i){
+                let stock = {id: i, companyName: response.data[i].companyName, descripcion: response.data[i].description, logo: response.data[i].logo};
+                console.log(stock)
             }
         },
         created() {
-            this.listStocks("MSFT")
+            DataService.retrieveBasicStockData().then(function(response){
+                let i = 0;
+                this.listStocks(response, i);
+            });
         }
     }
 </script>
