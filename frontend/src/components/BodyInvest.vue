@@ -1,9 +1,9 @@
 <template>
-    <div class="container-fluid d-flex justify-content-center">
+    <div class="container-fluid d-flex justify-content-center" id="#listOfStocks">
         <div class="text-center">
             <div v-for="stock in stocks" v-bind:key="stock.id" class="card d-inline-block custom-fade">
                 <div class="container card-body">
-                    <div class="row">
+                    <div class="row custom-card-header">
                         <div class="col-3 d-flex justify-content-center">
                             <img :src="stock.logo" alt="Logo de la empresa">
                         </div>
@@ -11,7 +11,8 @@
                             <h5 class="companyName card-title">{{stock.companyName}}</h5>
                         </div>
                     </div>
-                    <p id="descripcion">{{stock.description.substring(0,200)}}...</p>
+                    <p id="descripcion"></p>
+                    <!--<p id="descripcion">{{stock.description.substring(0,200)}}...</p>-->
                     <p class="card-text"><small class="text-muted"></small></p>
                 </div>
             </div>
@@ -108,5 +109,11 @@
         font-size: 14px;
         text-align: left;
         margin-top: 10px;
+    }
+
+    .custom-card-header{
+        border-bottom: 1px solid rgba(0, 0, 0, 0.33);
+        padding-bottom: 17px;
+        text-align: left;
     }
 </style>

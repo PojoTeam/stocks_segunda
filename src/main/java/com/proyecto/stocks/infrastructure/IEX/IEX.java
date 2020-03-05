@@ -30,11 +30,11 @@ public class IEX {
         for (String symbol : symbols) {
             String urlString = "https://cloud.iexapis.com/stable/stock/" + symbol + "/company?token=" + dotenv.get("API_KEY");
             String urlStringLogo = "https://storage.googleapis.com/iexcloud-hl37opg/api/logos/" + symbol + ".png";
+            String urlMarketCap = "https://cloud.iexapis.com/stable/stock/" + symbol + "/stats/marketcap" + dotenv.get("API_KEY");
             try {
                 URL url = new URL(urlString);
 
                 BufferedReader br = new BufferedReader(new InputStreamReader(url.openStream()));
-
                 String json = br.readLine();
 
                 company = mapper.readValue(json, Company.class);
