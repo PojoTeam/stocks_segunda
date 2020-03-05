@@ -38,7 +38,7 @@ public class IEX {
                 BufferedReader br = new BufferedReader(new InputStreamReader(url.openStream()));
                 String json = br.readLine();
                 br = new BufferedReader(new InputStreamReader(urlMarketCap.openStream()));
-                int marketCap = Integer.parseInt(br.readLine());
+                long marketCap = Long.parseLong(br.readLine());
                 marketCap = marketCap / 1000000;
 
                 company = mapper.readValue(json, Company.class);

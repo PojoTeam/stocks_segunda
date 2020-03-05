@@ -11,8 +11,8 @@
                             <h5 class="companyName card-title">{{stock.companyName}}</h5>
                         </div>
                     </div>
-                    <p id="descripcion"></p>
-                    <!--<p id="descripcion">{{stock.description.substring(0,200)}}...</p>-->
+                    <p class="descripcion">MARKET CAP: {{ stock.marketCap }} Millones</p>
+                    <p class="descripcion">{{stock.description.substring(0,110)}}...</p>
                     <p class="card-text"><small class="text-muted"></small></p>
                 </div>
             </div>
@@ -75,11 +75,15 @@
 </script>
 
 <style scoped>
-
+    @import url('https://fonts.googleapis.com/css?family=Titillium+Web:400,600&display=swap');
 
     img{
         width: 50px;
         height: 50px;
+    }
+
+    .card:hover{
+        box-shadow: 2px 2px #999;
     }
 
     .card{
@@ -91,6 +95,9 @@
     }
 
     .companyName {
+        font-family: 'Titillium Web', sans-serif;
+        font-weight: 600;
+        font-size: 1.2em;
         margin-bottom: 0;
     }
 
@@ -104,10 +111,13 @@
         transition: opacity 1s;
     }
 
-    #descripcion{
-        color: black;
-        font-size: 14px;
+    .descripcion{
         text-align: left;
+        font-family: 'Titillium Web', sans-serif;
+        font-size: 1.1em;
+        font-weight: 600;
+        line-height: 1.7em;
+        color: #767676;
         margin-top: 10px;
     }
 
