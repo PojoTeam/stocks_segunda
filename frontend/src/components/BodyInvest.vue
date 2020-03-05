@@ -1,7 +1,7 @@
 <template>
     <div class="container-fluid d-flex justify-content-center" id="#listOfStocks">
         <div class="text-center">
-            <div v-for="stock in stocks" v-bind:key="stock.id" class="card d-inline-block custom-fade">
+            <div v-for="stock in stocks" v-bind:key="stock.id" class="card d-inline-block custom-fade shadow-lg bg-white rounded">
                 <div class="container card-body">
                     <div class="row custom-card-header">
                         <div class="col-3 d-flex justify-content-center">
@@ -82,7 +82,8 @@
     }
 
     .card:hover{
-        box-shadow: 2px 2px #999;
+        box-shadow: none !important;
+        cursor: pointer;
     }
 
     .card{
