@@ -20,9 +20,9 @@ public class IEX {
         ArrayList<Company> companies = new ArrayList<Company>();
         Company company = null;
 
-        String[] symbols = {"AXP","AAPL","BA","CAT","CSCO","CVX","XOM","GS","HD","IBM",
-                "INTC","JNJ","KO","JPM","MCD","MMM","MRK","MSFT","NKE","PFE","PG",
-                "TRV","UNH","UTX","VZ","V","WBA","WMT","DIS","DOW"};
+        String[] symbols = {"AXP", "AAPL", "BA", "CAT", "CSCO", "CVX", "XOM", "GS", "HD", "IBM",
+                "INTC", "JNJ", "KO", "JPM", "MCD", "MMM", "MRK", "MSFT", "NKE", "PFE", "PG",
+                "TRV", "UNH", "UTX", "VZ", "V", "WBA", "WMT", "DIS", "DOW"};
 
         ObjectMapper mapper = new ObjectMapper();
         Dotenv dotenv = Dotenv.load();
@@ -30,15 +30,20 @@ public class IEX {
         for (String symbol : symbols) {
             String urlString = "https://cloud.iexapis.com/stable/stock/" + symbol + "/company?token=" + dotenv.get("API_KEY");
             String urlStringLogo = "https://storage.googleapis.com/iexcloud-hl37opg/api/logos/" + symbol + ".png";
-            String urlMarketCap = "https://cloud.iexapis.com/stable/stock/" + symbol + "/stats/marketcap" + dotenv.get("API_KEY");
+            String urlStringMarketCap = "https://cloud.iexapis.com/stable/stock/" + symbol + "/stats/marketcap?token=" + dotenv.get("API_KEY");
             try {
                 URL url = new URL(urlString);
+                URL urlMarketCap = new URL(urlStringMarketCap);
 
                 BufferedReader br = new BufferedReader(new InputStreamReader(url.openStream()));
                 String json = br.readLine();
+                br = new BufferedReader(new InputStreamReader(urlMarketCap.openStream()));
+                int marketCap = Integer.parseInt(br.readLine());
+                marketCap = marketCap / 1000000;
 
                 company = mapper.readValue(json, Company.class);
                 company.setLogo(urlStringLogo);
+                company.setMarketCap(marketCap);
 
                 companies.add(company);
 

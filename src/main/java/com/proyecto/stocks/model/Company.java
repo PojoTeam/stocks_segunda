@@ -10,15 +10,17 @@ public class Company implements Serializable {
     private String symbol;
     private String description;
     private String logo;
+    private int marketCap;
 
     public Company() {
     }
 
-    public Company(String companyName, String symbol, String description, String logo) {
+    public Company(String companyName, String symbol, String description, String logo, int marketCap) {
         this.companyName = companyName;
         this.symbol = symbol;
         this.description = description;
         this.logo = logo;
+        this.marketCap = marketCap;
     }
 
     public String getCompanyName() {
@@ -51,5 +53,13 @@ public class Company implements Serializable {
 
     public void setLogo(String logo) {
         this.logo = logo;
+    }
+
+    public int getMarketCap() {
+        return marketCap;
+    }
+
+    public void setMarketCap(int marketCap) {
+        this.marketCap = marketCap;
     }
 }
