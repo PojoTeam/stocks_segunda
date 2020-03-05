@@ -53,18 +53,17 @@
             this.listStocks();
         },
         updated() {
-            this.intersectionObserver = new IntersectionObserver((entries, /**observer**/) => {
+            this.intersectionObserver = new IntersectionObserver((entries, observer) => {
                 entries.forEach((entry) => {
                     if (entry.isIntersecting) {
                         // element is in viewport, do the stuff
                         if (entry.intersectionRatio > 0) {
                             this.fadeIn(entry.target);
                         }
-                        // it's good to remove observer,
-                        // if you don't need it any more
-                        // observer.unobserve(entry.target);
-                    }else{
+                        observer.unobserve(entry.target);
+                        /*}else{
                         this.deleteFade(entry.target);
+                        }*/
                     }
                 });
             });
