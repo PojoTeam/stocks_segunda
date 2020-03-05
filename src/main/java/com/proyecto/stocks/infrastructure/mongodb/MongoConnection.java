@@ -7,6 +7,7 @@ import com.mongodb.client.MongoClients;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 import com.proyecto.stocks.model.Company;
+import io.github.cdimascio.dotenv.Dotenv;
 import org.bson.codecs.configuration.CodecRegistry;
 import org.bson.codecs.pojo.PojoCodecProvider;
 
@@ -20,6 +21,7 @@ public class MongoConnection {
     public static MongoCollection<Company> collection = null;
 
     public static void initiate() {
+        Dotenv dotenv = Dotenv.load();
         CodecRegistry pojoCodecRegistry = fromRegistries(MongoClientSettings.getDefaultCodecRegistry(),
                 fromProviders(PojoCodecProvider.builder().automatic(true).build()));
 
@@ -27,7 +29,7 @@ public class MongoConnection {
                 .codecRegistry(pojoCodecRegistry)
                 .applyToSslSettings(builder -> builder.enabled(false))
                 .applyToClusterSettings(builder ->
-                        builder.hosts(Collections.singletonList(new ServerAddress("localhost", 27017))))
+                        builder.hosts(Collections.singletonList(new ServerAddress(dotenv.get("SERVER_IP"), 27017))))
                 .build();
 
         MongoClient mongoClient = MongoClients.create(settings);
