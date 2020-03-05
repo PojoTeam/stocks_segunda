@@ -1,6 +1,7 @@
 package com.proyecto.stocks.infrastructure.mongodb;
 
 import com.mongodb.MongoClientSettings;
+import com.mongodb.MongoCredential;
 import com.mongodb.ServerAddress;
 import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoClients;
@@ -21,12 +22,15 @@ public class MongoConnection {
     public static MongoCollection<Company> collection = null;
 
     public static void initiate() {
+        char[] pass = {'r','e','n','a','i','d','o'};
+        MongoCredential credential = MongoCredential.createCredential("root", "admin", pass);
         Dotenv dotenv = Dotenv.load();
         CodecRegistry pojoCodecRegistry = fromRegistries(MongoClientSettings.getDefaultCodecRegistry(),
                 fromProviders(PojoCodecProvider.builder().automatic(true).build()));
 
         MongoClientSettings settings = MongoClientSettings.builder()
                 .codecRegistry(pojoCodecRegistry)
+                .credential(credential)
                 .applyToSslSettings(builder -> builder.enabled(false))
                 .applyToClusterSettings(builder ->
                         builder.hosts(Collections.singletonList(new ServerAddress(dotenv.get("SERVER_IP"), 27017))))
