@@ -1,5 +1,5 @@
 <template>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light shadow">
         <div class="container-fluid">
 
             <button type="button" id="sidebarCollapse" v-on:click="collapseSidebar" class="btn btn-info ">

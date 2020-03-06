@@ -8,6 +8,6 @@ import java.util.ArrayList;
 public class MongoInsert {
     public static void companies(ArrayList<Company> companies) {
         MongoCollection<Company> collection = MongoConnection.getCollection();
-        collection.insertMany(companies);
+        //collection.insertMany(companies);
     }
 }

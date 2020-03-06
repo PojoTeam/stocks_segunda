@@ -1,20 +1,24 @@
 <template>
     <div class="container-fluid d-flex justify-content-center" id="#listOfStocks">
         <div class="text-center">
-            <div v-for="stock in stocks" v-bind:key="stock.id" class="card d-inline-block custom-fade shadow-lg bg-white rounded">
-                <div class="container card-body">
-                    <div class="row custom-card-header">
-                        <div class="col-3 d-flex justify-content-center">
-                            <img :src="stock.logo" alt="Logo de la empresa">
+            <div v-for="stock in stocks" v-bind:key="stock.id" class="card d-inline-block custom-fade">
+                <router-link :to="stock.symbol" append>
+
+                    <div class="container card-body">
+                        <div class="row custom-card-header">
+                            <div class="col-3">
+                                <img :src="stock.logo" alt="Logo de la empresa">
+                            </div>
+                            <div class="col-9 d-flex align-items-center justify-content-start">
+                                <h5 class="companyName card-title">{{stock.companyName}}</h5>
+                            </div>
                         </div>
-                        <div class="col-9 d-flex align-items-center justify-content-start">
-                            <h5 class="companyName card-title">{{stock.companyName}}</h5>
-                        </div>
+                        <p class="descripcion">MARKET CAP: {{ stock.marketCap }} Millones</p>
+                        <p class="descripcion">{{stock.description.substring(0,110)}}...</p>
+                        <p class="card-text"><small class="text-muted"></small></p>
                     </div>
-                    <p class="descripcion">MARKET CAP: {{ stock.marketCap }} Millones</p>
-                    <p class="descripcion">{{stock.description.substring(0,110)}}...</p>
-                    <p class="card-text"><small class="text-muted"></small></p>
-                </div>
+
+                </router-link>
             </div>
         </div>
     </div>
@@ -46,7 +50,6 @@
                 DataService.retrieveBasicStockData().then((response) => {
                     this.stocks = response.data;
                 });
-                this.setObservers();
             }
         },
         created() {
@@ -82,7 +85,8 @@
     }
 
     .card:hover{
-        box-shadow: none !important;
+        box-shadow: 1px 8px 20px grey;
+        -webkit-transition:  box-shadow .1s ease-in;
         cursor: pointer;
     }
 
@@ -92,6 +96,7 @@
         margin-right: 15px;
         margin-bottom: 20px;
         vertical-align: top;
+        box-shadow: 1px 1px 1px black;
     }
 
     .companyName {

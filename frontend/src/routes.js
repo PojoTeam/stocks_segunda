@@ -3,6 +3,7 @@ import Router from "vue-router";
 // import VueRouter from "vue-router";
 import ModalSearch from "./components/ModalSearch";
 // import Navbar from "./components/Navbar";
+import BodySymbol from "./components/BodySymbol";
 import Sidebar from "./components/Sidebar";
 import BodyInvest from "./components/BodyInvest";
 
@@ -17,7 +18,7 @@ const router = new Router({
             components: {
                 default: Sidebar,
                 modalBtn: null,
-                bodyInvest: null
+                body: null
             }
         },
         {
@@ -26,7 +27,7 @@ const router = new Router({
             components: {
                 default: Sidebar,
                 modalBtn: null,
-                bodyInvest: null
+                body: null
             }
         },
         {
@@ -35,7 +36,16 @@ const router = new Router({
             components: {
                 default: Sidebar,
                 modalBtn: ModalSearch,
-                bodyInvest: BodyInvest
+                body: BodyInvest
+            }
+        },
+        {
+            path: "/invest/symbol",
+            name: "Invest2",
+            components: {
+                default: Sidebar,
+                modalBtn: null,
+                body: BodySymbol
             }
         }
     ]
