@@ -40,7 +40,7 @@ const router = new Router({
             }
         },
         {
-            path: "/invest/symbol",
+            path: "/invest/:symbol",
             name: "Invest2",
             components: {
                 default: Sidebar,
