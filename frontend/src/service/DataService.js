@@ -9,6 +9,12 @@ class DataService {
     retrieveOneStockData(stock) {
         return axios.get(`${API_URL}/invest/${stock}`)
     }
+    postLogin(user, password) {
+        return axios.post(`${API_URL}/login`, {
+            user: user,
+            password: password
+        })
+    }
 }
 
 export default new DataService();

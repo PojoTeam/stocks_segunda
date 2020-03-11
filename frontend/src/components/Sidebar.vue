@@ -11,10 +11,19 @@
                 <router-link class="nav-link" to="/">Home</router-link>
             </li>
             <li>
-                <router-link class="nav-link" to="/portfolio">Portfolio</router-link>
+                <router-link v-if="authenticated" class="nav-link" to="/portfolio">Portfolio</router-link>
             </li>
             <li>
-                <router-link class="nav-link" to="/invest">Invest</router-link>
+                <router-link v-if="authenticated" class="nav-link" to="/invest">Invest</router-link>
+            </li>
+            <li>
+                <router-link v-if="!authenticated" class="nav-link" to="/login">Log In</router-link>
+            </li>
+            <li>
+                <router-link v-if="authenticated" v-on:click="logout" class="nav-link" to="/logout">Log Out</router-link>
+            </li>
+            <li>
+                <router-link v-if="!authenticated" class="nav-link" to="/signup">Sign Up</router-link>
             </li>
         </ul>
 
@@ -22,17 +31,33 @@
 </template>
 
 <script>
+    import router from "../routes";
+
     export default {
         name: "sidebar",
         data() {
             return {
-                isActive: false
+                isActive: false,
+                authenticated: false
             }
         },
         mounted: function () {
             this.$root.$on('toogleActive', () => {
                 this.isActive = !this.isActive
             })
+        },
+        created() {
+            let user = localStorage.getItem('user');
+            if (user != null){
+                this.authenticated = true
+            }else{
+                router.push("/login")
+            }
+        },
+        methods: {
+            logout() {
+                localStorage.removeItem('user')
+            }
         }
     }
 </script>
