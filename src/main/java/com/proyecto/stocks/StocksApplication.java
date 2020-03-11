@@ -23,8 +23,8 @@ public class StocksApplication implements ApplicationRunner {
 
     @Override
     public void run(ApplicationArguments args) {
-        ArrayList<Company> companies = IEX.getCompanys();
-        MongoInsert.companies(companies);
+        //ArrayList<Company> companies = IEX.getCompanys();
+        //MongoInsert.companies(companies);
         //NeodatisInsert.companies(companies, NeodatisConnection.innit());
     }
 }

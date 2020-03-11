@@ -35,7 +35,7 @@ public class MongoConnection {
                 .credential(credential)
                 .applyToSslSettings(builder -> builder.enabled(false))
                 .applyToClusterSettings(builder ->
-                        builder.hosts(Collections.singletonList(new ServerAddress(dotenv.get("SERVER_IP"), 27017))))
+                        builder.hosts(Collections.singletonList(new ServerAddress(dotenv.get("SERVER_IP"), 27015))))
                 .build();
 
         MongoClient mongoClient = MongoClients.create(settings);

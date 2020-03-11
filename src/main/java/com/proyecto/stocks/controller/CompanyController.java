@@ -1,8 +1,8 @@
 package com.proyecto.stocks.controller;
 
-import com.google.gson.Gson;
-import com.proyecto.stocks.infrastructure.mongodb.MongoQuery;
 import com.proyecto.stocks.model.Company;
+import com.proyecto.stocks.model.DaoInterface;
+import com.proyecto.stocks.model.DaoMongo;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,7 +18,8 @@ public class CompanyController {
     @CrossOrigin(origins = {"*"}, allowedHeaders = "*")
     @GetMapping("/invest")
     public ResponseEntity<?> obtainAll() {
-        List<Company> result = MongoQuery.companies();
+        DaoInterface dao = new DaoMongo();
+        List<Company> result = dao.getAllCompanies();
         if (result.isEmpty()) {
             return ResponseEntity.notFound().build();
         } else {
@@ -29,10 +30,11 @@ public class CompanyController {
     @CrossOrigin(origins = {"*"}, allowedHeaders = "*")
     @GetMapping("/invest/{symbol}")
     public ResponseEntity<?> obtainOne(@PathVariable String symbol) {
-        List<Company> result = MongoQuery.symbolCompany(symbol);
-        if(result.isEmpty()){
-            return  ResponseEntity.notFound().build();
-        }else {
+        DaoInterface dao = new DaoMongo();
+        Company result = dao.getCompany(symbol);
+        if (result == null) {
+            return ResponseEntity.notFound().build();
+        } else {
             return ResponseEntity.ok(result);
         }
     }
