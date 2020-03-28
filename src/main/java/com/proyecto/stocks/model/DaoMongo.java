@@ -10,9 +10,11 @@ import com.mongodb.client.MongoDatabase;
 import io.github.cdimascio.dotenv.Dotenv;
 import org.bson.codecs.configuration.CodecRegistry;
 import org.bson.codecs.pojo.PojoCodecProvider;
-import org.bson.types.ObjectId;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Objects;
 
 import static com.mongodb.client.model.Filters.and;
 import static com.mongodb.client.model.Filters.eq;
@@ -73,17 +75,22 @@ public class DaoMongo implements DaoInterface {
     }
 
     @Override
-    public User getUserId(String userName, String password) {
+    public User getUser(String userName, String password) {
         MongoCollection<User> collection = database.getCollection("users", User.class);
-        User id = collection.find(and(eq("userName",userName),eq("password",password))).first();
+        User user = collection.find(and(eq("userName", userName), eq("password", password))).first();
 
-        return id;
+        return user;
     }
 
     @Override
     public void insertUser(String userName, String password) {
         MongoCollection<User> collection = database.getCollection("users", User.class);
-        User user = new User(userName,password);
+        User user = new User(userName, password);
         collection.insertOne(user);
+    }
+
+    @Override
+    public void addBuy(String userName, Company company) {
+
     }
 }

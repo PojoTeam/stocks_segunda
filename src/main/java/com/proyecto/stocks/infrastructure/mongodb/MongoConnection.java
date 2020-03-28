@@ -11,7 +11,6 @@ import com.proyecto.stocks.model.Company;
 import io.github.cdimascio.dotenv.Dotenv;
 import org.bson.codecs.configuration.CodecRegistry;
 import org.bson.codecs.pojo.PojoCodecProvider;
-import org.springframework.boot.autoconfigure.security.saml2.Saml2RelyingPartyProperties;
 
 import java.util.Collections;
 import java.util.Objects;
@@ -24,8 +23,10 @@ public class MongoConnection {
     public static MongoCollection<Company> collection = null;
 
     public static void initiate() {
+        char[] pass = {'r', 'e', 'n', 'a', 'i', 'd', 'o'};
         Dotenv dotenv = Dotenv.load();
-        MongoCredential credential = MongoCredential.createCredential(Objects.requireNonNull(dotenv.get("MONGOUSER")), "admin", Objects.requireNonNull(dotenv.get("MONGOUSER_PASS")).toCharArray());
+        MongoCredential credential = MongoCredential.createCredential(Objects.requireNonNull(dotenv.get("MONGOUSER").toString()), "admin", Objects.requireNonNull(dotenv.get("MONGOUSER_PASS")).toCharArray());
+        //MongoCredential credential = MongoCredential.createCredential("root", "admin", pass);
 
         CodecRegistry pojoCodecRegistry = fromRegistries(MongoClientSettings.getDefaultCodecRegistry(),
                 fromProviders(PojoCodecProvider.builder().automatic(true).build()));

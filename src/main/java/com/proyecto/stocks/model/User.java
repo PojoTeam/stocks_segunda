@@ -1,8 +1,12 @@
 package com.proyecto.stocks.model;
 
-public class User {
+import java.io.Serializable;
+import java.util.ArrayList;
+
+public class User implements Serializable {
     private String userName;
     private String password;
+    private ArrayList<Company> companies;
 
     public User() {
     }
@@ -10,6 +14,7 @@ public class User {
     public User(String userName, String password) {
         this.userName = userName;
         this.password = password;
+        ArrayList<Company> companies = new ArrayList<>();
     }
 
     public String getUserName() {
@@ -26,5 +31,13 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public ArrayList<Company> getCompanies() {
+        return companies;
+    }
+
+    public void setCompanies(ArrayList<Company> companies) {
+        this.companies = companies;
     }
 }
