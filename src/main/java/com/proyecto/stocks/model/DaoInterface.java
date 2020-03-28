@@ -17,5 +17,5 @@ public interface DaoInterface {
 
     public void insertUser(String userName, String password);
 
-    public void addBuy(String userName, Company company);
+    public User addBuy(String userName, PurchasedCompany purchasedCompany);
 }

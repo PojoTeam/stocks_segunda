@@ -6,15 +6,15 @@ import java.util.ArrayList;
 public class User implements Serializable {
     private String userName;
     private String password;
-    private ArrayList<Company> companies;
+    private ArrayList<PurchasedCompany> companies;
 
     public User() {
     }
 
-    public User(String userName, String password) {
+    public User(String userName, String password, ArrayList<PurchasedCompany> companies) {
         this.userName = userName;
         this.password = password;
-        ArrayList<Company> companies = new ArrayList<>();
+        this.companies = companies;
     }
 
     public String getUserName() {
@@ -33,11 +33,11 @@ public class User implements Serializable {
         this.password = password;
     }
 
-    public ArrayList<Company> getCompanies() {
+    public ArrayList<PurchasedCompany> getCompanies() {
         return companies;
     }
 
-    public void setCompanies(ArrayList<Company> companies) {
+    public void setCompanies(ArrayList<PurchasedCompany> companies) {
         this.companies = companies;
     }
 }

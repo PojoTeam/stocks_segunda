@@ -85,12 +85,24 @@ public class DaoMongo implements DaoInterface {
     @Override
     public void insertUser(String userName, String password) {
         MongoCollection<User> collection = database.getCollection("users", User.class);
-        User user = new User(userName, password);
+        ArrayList<PurchasedCompany> purchasedCompanies = new ArrayList<>();
+        User user = new User(userName, password, purchasedCompanies);
         collection.insertOne(user);
     }
 
     @Override
-    public void addBuy(String userName, Company company) {
+    public User addBuy(String userName, PurchasedCompany purchasedCompany) {
+        MongoCollection<User> collection = database.getCollection("users", User.class);
+        User user = collection.find(eq("userName", userName)).first();
 
+        ArrayList<PurchasedCompany> companies = user.getCompanies();
+        companies.add(purchasedCompany);
+        user.setCompanies(companies);
+
+        collection.deleteOne(eq("userName", userName));
+
+        collection.insertOne(user);
+
+        return user;
     }
 }

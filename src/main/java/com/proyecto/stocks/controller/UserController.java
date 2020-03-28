@@ -2,11 +2,13 @@ package com.proyecto.stocks.controller;
 
 import com.proyecto.stocks.model.DaoInterface;
 import com.proyecto.stocks.model.DaoMongo;
+import com.proyecto.stocks.model.PurchasedCompany;
 import com.proyecto.stocks.model.User;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -29,9 +31,9 @@ public class UserController {
     public ResponseEntity<?> obtainOne(@PathVariable String userName, String password) {
         DaoInterface dao = new DaoMongo();
         User result = dao.getUser(userName, password);
-        if(result == null){
-            return  ResponseEntity.notFound().build();
-        }else {
+        if (result == null) {
+            return ResponseEntity.notFound().build();
+        } else {
             return ResponseEntity.ok(result);
         }
     }
@@ -42,7 +44,8 @@ public class UserController {
         if (!userName.equalsIgnoreCase("") && !password.equalsIgnoreCase("")) {
             DaoInterface dao = new DaoMongo();
             dao.insertUser(userName, password);
-            User saved = new User(userName, password);
+            ArrayList<PurchasedCompany> purchasedCompanies = new ArrayList<>();
+            User saved = new User(userName, password, purchasedCompanies);
             return new ResponseEntity<User>(saved, HttpStatus.CREATED);
         } else {
             return new ResponseEntity<User>(HttpStatus.BAD_REQUEST);
@@ -62,4 +65,20 @@ public class UserController {
         }
     }
 
+    @CrossOrigin(origins = {"*"}, allowedHeaders = "*")
+    @PostMapping("/buy")
+    public ResponseEntity<User> buy(String userName, String symbol, int quantity, float price) {
+        if (!userName.equalsIgnoreCase("") && !symbol.equalsIgnoreCase("")) {
+            DaoInterface dao = new DaoMongo();
+
+            PurchasedCompany purchasedCompany = new PurchasedCompany(symbol, quantity, price);
+
+            User saved = dao.addBuy(userName, purchasedCompany);
+
+            return new ResponseEntity<User>(saved, HttpStatus.CREATED);
+
+        } else {
+            return new ResponseEntity<User>(HttpStatus.BAD_REQUEST);
+        }
+    }
 }
