@@ -20,7 +20,7 @@ public class UserController {
     public ResponseEntity<?> obtainAll() {
         DaoInterface dao = new DaoMongo();
         List<User> result = dao.getAllUsers();
-        if (result.isEmpty()) {
+        if (result == null) {
             return ResponseEntity.notFound().build();
         } else {
             return ResponseEntity.ok(result);

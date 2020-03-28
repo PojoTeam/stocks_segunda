@@ -8,6 +8,7 @@ import LogIn from "./components/LogIn";
 import BodySymbol from "./components/BodySymbol";
 import Sidebar from "./components/Sidebar";
 import BodyInvest from "./components/BodyInvest";
+import BodyHome from "./components/BodyHome";
 
 Vue.use(Router);
 
@@ -20,7 +21,7 @@ const router = new Router({
             components: {
                 default: Sidebar,
                 modalBtn: null,
-                body: null
+                body: BodyHome
             }
         },
         {
@@ -29,7 +30,7 @@ const router = new Router({
             components: {
                 default: Sidebar,
                 modalBtn: null,
-                body: null
+                body: BodyHome
             }
         },
         {

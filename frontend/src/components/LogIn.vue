@@ -2,9 +2,10 @@
     <div class="container-fluid d-flex justify-content-center align-items-start">
         <div class="card">
             <form class="card-body">
+                <h2>Log In</h2>
                 <div class="form-group">
                     <label for="InputUsername">Nombre de Usuario</label>
-                    <input type="email" class="form-control" id="InputUsername" aria-describedby="emailHelp">
+                    <input type="text" class="form-control" id="InputUsername">
                 </div>
                 <div class="form-group">
                     <label for="InputPassword">Contraseña</label>

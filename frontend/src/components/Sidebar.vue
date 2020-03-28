@@ -20,7 +20,7 @@
                 <router-link v-if="!authenticated" class="nav-link" to="/login">Log In</router-link>
             </li>
             <li>
-                <router-link v-if="authenticated" v-on:click="logout" class="nav-link" to="/logout">Log Out</router-link>
+                <a href="/" v-if="authenticated" v-on:click="logout" class="nav-link">Log Out</a>
             </li>
             <li>
                 <router-link v-if="!authenticated" class="nav-link" to="/signup">Sign Up</router-link>
@@ -56,7 +56,8 @@
         },
         methods: {
             logout() {
-                localStorage.removeItem('user')
+                console.log("removing")
+                localStorage.removeItem('user');
             }
         }
     }
