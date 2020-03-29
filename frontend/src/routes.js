@@ -9,6 +9,7 @@ import BodySymbol from "./components/BodySymbol";
 import Sidebar from "./components/Sidebar";
 import BodyInvest from "./components/BodyInvest";
 import BodyHome from "./components/BodyHome";
+import BodyPortfolio from "./components/BodyPortfolio";
 
 Vue.use(Router);
 
