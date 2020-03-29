@@ -11,13 +11,14 @@ import org.springframework.web.bind.annotation.*;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.proyecto.stocks.StocksApplication.dao;
+
 @RestController
 public class UserController {
 
     @CrossOrigin(origins = {"*"}, allowedHeaders = "*")
     @GetMapping("/login")
     public ResponseEntity<?> obtainAll() {
-        DaoInterface dao = new DaoMongo();
         List<User> result = dao.getAllUsers();
         if (result == null) {
             return ResponseEntity.notFound().build();
@@ -29,7 +30,6 @@ public class UserController {
     @CrossOrigin(origins = {"*"}, allowedHeaders = "*")
     @GetMapping("/login/{userName}")
     public ResponseEntity<?> obtainOne(@PathVariable String userName, String password) {
-        DaoInterface dao = new DaoMongo();
         User result = dao.getUser(userName, password);
         if (result == null) {
             return ResponseEntity.notFound().build();
@@ -42,7 +42,6 @@ public class UserController {
     @PostMapping("/register")
     public ResponseEntity<User> newUser(String userName, String password) {
         if (!userName.equalsIgnoreCase("") && !password.equalsIgnoreCase("")) {
-            DaoInterface dao = new DaoMongo();
             dao.insertUser(userName, password);
             ArrayList<PurchasedCompany> purchasedCompanies = new ArrayList<>();
             User saved = new User(userName, password, purchasedCompanies);
@@ -56,7 +55,6 @@ public class UserController {
     @PostMapping("/login")
     public ResponseEntity<User> loginUser(String userName, String password) {
         if (!userName.equalsIgnoreCase("") && !password.equalsIgnoreCase("")) {
-            DaoInterface dao = new DaoMongo();
             User user = dao.getUser(userName, password);
 
             return new ResponseEntity<User>(user, HttpStatus.CREATED);
@@ -69,7 +67,6 @@ public class UserController {
     @PostMapping("/buy")
     public ResponseEntity<User> buy(String userName, String symbol, int quantity, float price) {
         if (!userName.equalsIgnoreCase("") && !symbol.equalsIgnoreCase("")) {
-            DaoInterface dao = new DaoMongo();
 
             PurchasedCompany purchasedCompany = new PurchasedCompany(symbol, quantity, price);
 

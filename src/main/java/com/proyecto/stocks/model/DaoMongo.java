@@ -7,6 +7,7 @@ import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoClients;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
+import com.proyecto.stocks.infrastructure.mongodb.MongoConnection;
 import io.github.cdimascio.dotenv.Dotenv;
 import org.bson.codecs.configuration.CodecRegistry;
 import org.bson.codecs.pojo.PojoCodecProvider;
@@ -23,7 +24,6 @@ import static org.bson.codecs.configuration.CodecRegistries.fromRegistries;
 
 public class DaoMongo implements DaoInterface {
 
-    List<Company> companies;
     private MongoDatabase database;
 
     public DaoMongo() {
@@ -43,6 +43,12 @@ public class DaoMongo implements DaoInterface {
 
         MongoClient mongoClient = MongoClients.create(settings);
         database = mongoClient.getDatabase("stocksdb");
+    }
+
+    @Override
+    public void insertCompanies(ArrayList<Company> companies) {
+        MongoCollection<Company> collection = MongoConnection.getCollection();
+        collection.insertMany(companies);
     }
 
     @Override

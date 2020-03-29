@@ -23,6 +23,13 @@ public class DaoNeodatis implements DaoInterface {
     }
 
     @Override
+    public void insertCompanies(ArrayList<Company> companies) {
+        for (Company company: companies){
+            odb.store(company);
+        }
+    }
+
+    @Override
     public List<Company> getAllCompanies() {
         Company company = null;
         ArrayList<Company> companies = null;

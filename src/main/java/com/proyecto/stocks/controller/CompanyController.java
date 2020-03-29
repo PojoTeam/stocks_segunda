@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
+import static com.proyecto.stocks.StocksApplication.dao;
+
 
 @RestController
 public class CompanyController {
@@ -18,7 +20,6 @@ public class CompanyController {
     @CrossOrigin(origins = {"*"}, allowedHeaders = "*")
     @GetMapping("/invest")
     public ResponseEntity<?> obtainAll() {
-        DaoInterface dao = new DaoMongo();
         List<Company> result = dao.getAllCompanies();
         if (result.isEmpty()) {
             return ResponseEntity.notFound().build();
@@ -30,7 +31,6 @@ public class CompanyController {
     @CrossOrigin(origins = {"*"}, allowedHeaders = "*")
     @GetMapping("/invest/{symbol}")
     public ResponseEntity<?> obtainOne(@PathVariable String symbol) {
-        DaoInterface dao = new DaoMongo();
         Company result = dao.getCompany(symbol);
         if (result == null) {
             return ResponseEntity.notFound().build();

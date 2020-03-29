@@ -1,8 +1,11 @@
 package com.proyecto.stocks.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public interface DaoInterface {
+    public void insertCompanies(ArrayList<Company> companies);
+
     public List<Company> getAllCompanies();
 
     public Company getCompany(String symbol);
