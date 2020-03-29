@@ -58,6 +58,9 @@
             logout() {
                 console.log("removing")
                 localStorage.removeItem('user');
+                localStorage.removeItem('password');
+                router.push("/")
+                location.reload()
             }
         }
     }
