@@ -1,6 +1,8 @@
 package com.proyecto.stocks.model;
 
-public class PurchasedCompany {
+import java.io.Serializable;
+
+public class PurchasedCompany implements Serializable {
     private String symbol;
     private int quantity;
     private float price;
