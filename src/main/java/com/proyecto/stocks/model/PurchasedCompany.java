@@ -2,7 +2,7 @@ package com.proyecto.stocks.model;
 
 import java.io.Serializable;
 
-public class PurchasedCompany implements Serializable {
+public class PurchasedCompany implements Serializable{
     private String symbol;
     private int quantity;
     private float price;

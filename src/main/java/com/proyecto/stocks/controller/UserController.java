@@ -56,8 +56,12 @@ public class UserController {
     public ResponseEntity<User> loginUser(String userName, String password) {
         if (!userName.equalsIgnoreCase("") && !password.equalsIgnoreCase("")) {
             User user = dao.getUser(userName, password);
+            if(user == null){
+                return new ResponseEntity<User>(HttpStatus.BAD_REQUEST);
+            }else{
+                return new ResponseEntity<User>(user, HttpStatus.CREATED);
+            }
 
-            return new ResponseEntity<User>(user, HttpStatus.CREATED);
         } else {
             return new ResponseEntity<User>(HttpStatus.BAD_REQUEST);
         }
