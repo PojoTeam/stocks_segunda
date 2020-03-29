@@ -30,7 +30,7 @@ const router = new Router({
             components: {
                 default: Sidebar,
                 modalBtn: null,
-                body: BodyHome
+                body: BodyPortfolio
             }
         },
         {
