@@ -24,7 +24,10 @@ public class DaoNeodatis implements DaoInterface {
 
     @Override
     public void insertCompanies(ArrayList<Company> companies) {
-        for (Company company: companies){
+        if (getAllCompanies() != null) {
+            odb.delete(getAllCompanies());
+        }
+        for (Company company : companies) {
             odb.store(company);
         }
     }
@@ -32,7 +35,7 @@ public class DaoNeodatis implements DaoInterface {
     @Override
     public List<Company> getAllCompanies() {
         Company company = null;
-        ArrayList<Company> companies = null;
+        ArrayList<Company> companies = new ArrayList<>();
         Objects<Company> objects = odb.getObjects(Company.class);
 
         while (objects.hasNext()) {
@@ -66,7 +69,7 @@ public class DaoNeodatis implements DaoInterface {
     @Override
     public List<User> getAllUsers() {
         User user = null;
-        ArrayList<User> users = null;
+        ArrayList<User> users = new ArrayList<>();
         Objects<User> objects = odb.getObjects(User.class);
 
         while (objects.hasNext()) {

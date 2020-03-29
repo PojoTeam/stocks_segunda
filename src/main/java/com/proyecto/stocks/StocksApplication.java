@@ -1,7 +1,6 @@
 package com.proyecto.stocks;
 
 import com.proyecto.stocks.infrastructure.IEX.IEX;
-import com.proyecto.stocks.infrastructure.mongodb.MongoInsert;
 import com.proyecto.stocks.model.DaoInterface;
 import com.proyecto.stocks.model.DaoMongo;
 import com.proyecto.stocks.model.DaoNeodatis;
@@ -39,11 +38,11 @@ public class StocksApplication implements ApplicationRunner {
             } catch (IOException e) {
                 e.printStackTrace();
             }
-            if (op == 1){
-                dao = new DaoNeodatis();
-            }else if (op == 2){
+            if (op == 1) {
                 dao = new DaoMongo();
-            }else{
+            } else if (op == 2) {
+                dao = new DaoNeodatis();
+            } else {
                 System.out.println("Seleccione una opcion correcta:");
             }
         }while (op != 1 && op != 2);

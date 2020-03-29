@@ -1,5 +1,6 @@
 package com.proyecto.stocks.model;
 
+import com.mongodb.BasicDBObject;
 import com.mongodb.MongoClientSettings;
 import com.mongodb.MongoCredential;
 import com.mongodb.ServerAddress;
@@ -7,7 +8,6 @@ import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoClients;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
-import com.proyecto.stocks.infrastructure.mongodb.MongoConnection;
 import io.github.cdimascio.dotenv.Dotenv;
 import org.bson.codecs.configuration.CodecRegistry;
 import org.bson.codecs.pojo.PojoCodecProvider;
@@ -47,7 +47,9 @@ public class DaoMongo implements DaoInterface {
 
     @Override
     public void insertCompanies(ArrayList<Company> companies) {
-        MongoCollection<Company> collection = MongoConnection.getCollection();
+        MongoCollection<Company> collection = database.getCollection("companies", Company.class);
+        BasicDBObject document = new BasicDBObject();
+        collection.deleteMany(document);
         collection.insertMany(companies);
     }
 
