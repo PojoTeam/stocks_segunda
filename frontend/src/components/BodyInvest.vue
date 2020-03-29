@@ -2,7 +2,7 @@
     <div class="container-fluid d-flex justify-content-center" id="#listOfStocks">
         <div class="text-center">
             <div v-for="stock in stocks" v-bind:key="stock.id" class="card d-inline-block custom-fade">
-                <router-link :to="stock.symbol" append>
+                <router-link :to="{name: 'Invest2', params: { symbol: stock.symbol}}">
 
                     <div class="container card-body">
                         <div class="row custom-card-header">

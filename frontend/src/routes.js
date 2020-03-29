@@ -49,7 +49,8 @@ const router = new Router({
                 default: Sidebar,
                 modalBtn: null,
                 body: BodySymbol
-            }
+            },
+            props: true
         },
         {
             path: "/login",

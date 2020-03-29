@@ -5,7 +5,7 @@
                 <h2>Sign Up</h2>
                 <div class="form-group">
                     <label for="InputUsername">Nombre de Usuario</label>
-                    <input type="email" class="form-control" id="InputUsername" aria-describedby="emailHelp">
+                    <input type="email" class="form-control" id="InputUsername">
                 </div>
                 <div class="form-group">
                     <label for="InputPassword">Contraseña</label>
@@ -33,11 +33,13 @@
         },
         methods: {
             signUp() {
-                let user = document.getElementById('InputUsername');
-                let password = document.getElementById('InputPassword');
+                let user = document.getElementById('InputUsername').value;
+                let password = document.getElementById('InputPassword').value;
                 DataService.postRegister(user, password).then(response => {
-                    this.localStorage.setItem("user", response.data.token);
-                    router.push("/portfolio")
+                    localStorage.setItem("user", response.data.userName);
+                    localStorage.setItem("password", response.data.password)
+                    router.push("/portfolio");
+                    location.reload()
                 }).catch( function(){
                     this.error = true
                 });
