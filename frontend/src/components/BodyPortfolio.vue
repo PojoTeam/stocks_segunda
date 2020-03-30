@@ -60,6 +60,12 @@
                 </div>
                 <input type="text" maxlength="4" class="form-control" id="InputBuy" @keypress="isNumber($event)">
                 <button class="button" v-on:click="sell">Vender</button>
+                <div class="alert alert-danger alert-dismissible fade show" role="alert" v-if="alertaUp">
+                    Error
+                    <button type="button" class="close" aria-label="Close" v-on:click="alertaUp = false">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
             </div>
         </div>
     </div>
@@ -75,10 +81,20 @@
             return{
                 actionHistory: [],
                 stackedActions: [],
-                company: null
+                company: null,
+                alertaUp: false
             }
         },
         methods: {
+            removeZeroQuantityFromCartera(){
+                let i = 0;
+                for (const element of this.stackedActions) {
+                    if(element.quantity === 0){
+                        this.stackedActions.splice(i,1)
+                    }
+                    i++
+                }
+            },
             async fillStacked(){
                 for (const element of this.actionHistory) {
                     if(this.stackedActions.some(el => el.symbol === element.symbol)){
@@ -92,10 +108,11 @@
                         let precioTiempoReal = response.data;
                         this.stackedActions.push({symbol: element.symbol, quantity: element.quantity, price: precioTiempoReal})
                     }
+                    this.removeZeroQuantityFromCartera()
                 }
             },
             electedCompany(event){
-                this.company = event.currentTarget.innerHTML
+                this.company = event.currentTarget.innerHTML;
                 document.getElementById('companyElegir').value = this.company
             },
             isNumber: function(evt) {
@@ -116,12 +133,18 @@
                     let max = companyEnCartera[0].quantity;
                     let username = localStorage.getItem('user');
                     console.log(username, symbol, quantity*-1, price);
-                    if(quantity < max && quantity !== 0){
+                    if(quantity < max+1  && quantity !== 0){
                         DataService.buyActions(username, symbol, quantity*-1, price).then((response) => {
                             console.log(response)
                         });
                         location.reload();
+                    }else{
+                        this.alertaUp = false;
+                        this.alertaUp = true
                     }
+                }else{
+                    this.alertaUp = false;
+                    this.alertaUp = true
                 }
             }
         },

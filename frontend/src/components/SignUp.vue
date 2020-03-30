@@ -5,7 +5,7 @@
                 <h2>Sign Up</h2>
                 <div class="form-group">
                     <label for="InputUsername">Nombre de Usuario</label>
-                    <input type="email" class="form-control" id="InputUsername">
+                    <input type="text" class="form-control" id="InputUsername">
                 </div>
                 <div class="form-group">
                     <label for="InputPassword">Contraseña</label>

@@ -1,6 +1,6 @@
 import axios from "axios";
 
-require('dotenv').config()
+require('dotenv').config();
 const API_URL = "http://192.168.0.20:8090";
 const API_IEX_URL = "https://cloud.iexapis.com/stable/stock/";
 
