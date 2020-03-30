@@ -1,7 +1,7 @@
 import axios from "axios";
 
 require('dotenv').config()
-const API_URL = "http://localhost:8090";
+const API_URL = "http://192.168.0.20:8090";
 const API_IEX_URL = "https://cloud.iexapis.com/stable/stock/";
 
 class DataService {
@@ -14,8 +14,8 @@ class DataService {
     retrieveLast5DaysPrices(stock) {
         return axios.get(`${API_IEX_URL}${stock}/chart/5d?token=${process.env.VUE_APP_API_KEY}`)
     }
-    retrieveOneStockPrice(stock){
-        return axios.get(`${API_IEX_URL}${stock}/quote/latestPrice?token=${process.env.VUE_APP_API_KEY}`)
+    async retrieveOneStockPrice(stock){
+         return await axios.get(`${API_IEX_URL}${stock}/quote/latestPrice?token=${process.env.VUE_APP_API_KEY}`);
     }
     buyActions(userName, symbol, quantity, price){
         return axios.post(`${API_URL}/buy?userName=${userName}&symbol=${symbol}&quantity=${quantity}&price=${price}`)

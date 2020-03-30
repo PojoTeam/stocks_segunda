@@ -6,7 +6,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-sm text-center">
-                    <line-chart class="small d-inline-block" :chartdata="datacollection" :options="options"></line-chart>
+                    <line-chart v-if="loaded" class="small d-inline-block" :chartdata="datacollection" :options="options"></line-chart>
                 </div>
                 <div class="col-sm">
                     <div class="frame text-center">
@@ -34,7 +34,7 @@
 
 <script>
     import DataService from "../service/DataService";
-    import LineChart from './LineChart.js'
+    import LineChart from "./LineChart";
 
     export default {
         name: "BodySymbol",
@@ -51,7 +51,8 @@
                 alertaUp: false,
                 precioTiempoReal: null,
                 datacollection: null,
-                options: null
+                options: null,
+                loaded: false
             }
         },
         created() {
@@ -63,6 +64,8 @@
                 console.log(response.data);
                 this.precioTiempoReal = response.data
             });
+        },
+        mounted() {
             DataService.retrieveLast5DaysPrices(this.$route.params.symbol).then((response) => {
                 console.log(response.data);
                 for(let i = 0; i < response.data.length; i++){
@@ -122,8 +125,9 @@
                             }
                         }],
                     }
-                }
-            });
+                };
+                this.loaded = true
+            })
         },
         methods: {
             isNumber: function(evt) {
