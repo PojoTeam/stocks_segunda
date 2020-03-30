@@ -1,7 +1,5 @@
 package com.proyecto.stocks.controller;
 
-import com.proyecto.stocks.model.DaoInterface;
-import com.proyecto.stocks.model.DaoMongo;
 import com.proyecto.stocks.model.PurchasedCompany;
 import com.proyecto.stocks.model.User;
 import org.springframework.http.HttpStatus;

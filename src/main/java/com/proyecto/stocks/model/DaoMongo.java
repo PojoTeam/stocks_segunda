@@ -68,16 +68,6 @@ public class DaoMongo implements DaoInterface {
     }
 
     @Override
-    public void updateCompany(Company company) {
-
-    }
-
-    @Override
-    public void deleteCompany(Company company) {
-
-    }
-
-    @Override
     public List<User> getAllUsers() {
         return null;
     }

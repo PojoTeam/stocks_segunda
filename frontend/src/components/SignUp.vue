@@ -11,7 +11,7 @@
                     <label for="InputPassword">Contraseña</label>
                     <input type="password" class="form-control" id="InputPassword">
                 </div>
-                <button type="submit" class="btn btn-primary" v-on:click="signUp">Sign Up</button>
+                <button type="button" class="btn btn-primary" v-on:click="signUp">Sign Up</button>
                 <div class="alert alert-danger" v-if="error" role="alert">
                     Credenciales erroneas
                 </div>
@@ -21,8 +21,8 @@
 </template>
 
 <script>
-    import DataService from "../service/DataService";
-    import router from "../routes";
+   import DataService from "../service/DataService";
+   import router from "../routes";
 
     export default {
         name: "Register",
@@ -36,10 +36,11 @@
                 let user = document.getElementById('InputUsername').value;
                 let password = document.getElementById('InputPassword').value;
                 DataService.postRegister(user, password).then(response => {
+                    console.log(response);
                     localStorage.setItem("user", response.data.userName);
                     localStorage.setItem("password", response.data.password)
                     router.push("/portfolio");
-                    location.reload()
+                    location.reload();
                 }).catch( function(){
                     this.error = true
                 });

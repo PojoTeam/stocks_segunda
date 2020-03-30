@@ -18,7 +18,6 @@ public class DaoNeodatis implements DaoInterface {
     private ODB odb;
 
     public DaoNeodatis() {
-        Dotenv dotenv = Dotenv.load();
         odb = ODBFactory.openClient("localhost", 8000, "bd");
     }
 
@@ -57,16 +56,6 @@ public class DaoNeodatis implements DaoInterface {
 
         company = companies.getFirst();
         return company;
-    }
-
-    @Override
-    public void updateCompany(Company company) {
-
-    }
-
-    @Override
-    public void deleteCompany(Company company) {
-
     }
 
     @Override
