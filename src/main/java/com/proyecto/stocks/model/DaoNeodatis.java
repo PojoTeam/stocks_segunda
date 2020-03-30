@@ -19,13 +19,16 @@ public class DaoNeodatis implements DaoInterface {
 
     public DaoNeodatis() {
         Dotenv dotenv = Dotenv.load();
-        odb = ODBFactory.openClient(dotenv.get("SERVER_IP"), 8000, "bd");
+        odb = ODBFactory.openClient("localhost", 8000, "bd");
     }
 
     @Override
     public void insertCompanies(ArrayList<Company> companies) {
-        if (getAllCompanies() != null) {
-            odb.delete(getAllCompanies());
+        List<Company> oldCompanies = getAllCompanies();
+        if (oldCompanies != null) {
+            for(Company company: oldCompanies){
+                odb.delete(company);
+            }
         }
         for (Company company : companies) {
             odb.store(company);
@@ -86,18 +89,25 @@ public class DaoNeodatis implements DaoInterface {
                 .add(Where.equal("password", password));
         CriteriaQuery query = new CriteriaQuery(User.class, criterion);
         Objects<User> objects = odb.getObjects(query);
+        if(objects.hasNext()){
+            return objects.getFirst();
+        }else{
+            return null;
+        }
 
-        return objects.getFirst();
     }
 
     @Override
     public void insertUser(String userName, String password) {
-        IQuery query = new CriteriaQuery(Company.class, Where.equal("userName", userName));
+        IQuery query = new CriteriaQuery(User.class, Where.equal("userName", userName));
         Objects<User> objects = odb.getObjects(query);
-
-        if (userName.equalsIgnoreCase(objects.getFirst().getUserName())) {
-
-        } else {
+        if(objects.hasNext()){
+            if (!userName.equalsIgnoreCase(objects.getFirst().getUserName())) {
+                ArrayList<PurchasedCompany> purchasedCompanies = new ArrayList<>();
+                User user = new User(userName, password, purchasedCompanies);
+                odb.store(user);
+            }
+        }else{
             ArrayList<PurchasedCompany> purchasedCompanies = new ArrayList<>();
             User user = new User(userName, password, purchasedCompanies);
             odb.store(user);
@@ -106,7 +116,7 @@ public class DaoNeodatis implements DaoInterface {
 
     @Override
     public User addBuy(String userName, PurchasedCompany purchasedCompany) {
-        IQuery query = new CriteriaQuery(Company.class, Where.equal("userName", userName));
+        IQuery query = new CriteriaQuery(User.class, Where.equal("userName", userName));
         Objects<User> objects = odb.getObjects(query);
         User user = objects.getFirst();
         ArrayList<PurchasedCompany> companies = user.getCompanies();

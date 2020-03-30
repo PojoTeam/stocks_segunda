@@ -26,9 +26,6 @@ public class StocksApplication implements ApplicationRunner {
 
     @Override
     public void run(ApplicationArguments args) {
-        //ArrayList<Company> companies = IEX.getCompanys();
-        //MongoInsert.companies(companies);
-        //NeodatisInsert.companies(companies, NeodatisConnection.innit());
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         System.out.println("Seleccione la BD que quiere utilizar:");
         do{
@@ -48,23 +45,6 @@ public class StocksApplication implements ApplicationRunner {
                 System.out.println("Seleccione una opcion correcta:");
             }
         }while (op != 1 && op != 2);
-
-        System.out.println("Desea volver a importar los datos en la BD?");
-        do{
-            System.out.println("1.- Si." +
-                    "\n2.- No." +
-                    "\nOpcion ===> ");
-            try {
-                op = Byte.parseByte(br.readLine());
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            if (op == 1) {
-                dao.insertCompanies(IEX.getCompanys());
-            } else if (op != 2) {
-                System.out.println("Seleccione una opcion correcta:");
-            }
-        } while (op != 1 && op != 2);
 
         Task task = new Task();
         Timer timer = new Timer();
